@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPbao</title>
+    <link  href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"  rel= "stylesheet" >
+    <script src="../js/index.js"></script>
+    <script src="../js/modal.js"></script>
+
+
+
+    <style>
+        body {
+            background: radial-gradient(circle at 50% 50%,palegreen ,honeydew );
+            background-attachment: fixed;
+        }
+
+        .custom-navbar {
+            background-color: honeydew;
+            position: fixed;
+            width: 100%;
+            top: 0;
+
+        }
+
+
+
+        .PHicon {
+            padding: 1px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px lightgreen, 0 0 10px greenyellow;
+            /* opacity: 0.7; */
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        ul li span {
+            color: #f2de07;
+            text-shadow: 2px 1px 1px black ;
+            font-size: 20px;
+
+        }
+
+        .modal-image{
+            max-width: 100%;
+            width: 120px;
+            height: 120px;
+            height:auto;
+        }
+
+        .navbar-menu span {
+            color: lightpink;
+        }
+
+        /* Media query for screens between 1024px and 1407px */
+        @media screen and (min-width: 1024px) and (max-width: 1407px) {
+            .custom-navbar {
+                width: auto;
+                max-width: none;
+                left: 0;
+                right: 0;
+            }
+        }
+
+
+        /* 1408px 이상 */
+        @media screen and (min-width: 1408px) {
+            .navbar {
+                width: 1344px;
+
+            }
+        }
+
+         .field-error {
+             border-color: #dc3545;
+             color: #dc3545;
+         }
+
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar custom-navbar">
+        <div class="navbar-brand pl-3">
+            <a class="navbar-item" href="#">
+                <img class="PHicon" src="../images/HPbao_-_MarkMaker_Logo-removebg-preview.png" style="width: 55px; height: 55px; object-fit: contain; max-height: 100%;">
+            </a>
+
+            <a role="button" class="navbar-burger has-text-success" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start" style=" margin: 7px;">
+                <a class="navbar-item has-text-success">
+                    <strong>정보</strong>
+                </a>
+
+                <a href="healty_pleasure.html" class="navbar-item has-text-success">
+                    <strong><span>헬시</span>플레저</strong>
+                </a>
+
+                <a class="navbar-item has-text-success">
+                    <strong>커뮤니티</strong>
+                </a>
+            </div>
+
+            <div class="navbar-end mr-3">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a onclick="location.href='joinForm.html'"
+                           th:onclick="|location.href='@{/hpbao/join}'|"
+                           class="button is-success  is-active is-outlined ">
+                            <strong>회원가입</strong>
+                        </a>
+
+<!--                         모달 로그인 버튼-->
+                        <button class="js-modal-trigger button is-success is-light"
+                                data-target="modal-js-example">
+                            로그인
+                        </button>
+
+<!--                        loginForm 연결 버튼 -->
+<!--                        <button class="js-modal-trigger button is-success is-light"-->
+<!--                                type="button" onclick="location.href='loginForm.html'"-->
+<!--                            th:onclick="|location.href='@{/hpbao/login}'|">-->
+<!--                            로그인-->
+<!--                        </button>-->
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- 모달 요소 -->
+<div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content" style="width: 500px; border: 3px solid palegreen; border-radius: 5%; box-shadow: 0 0 10px yellowgreen;">
+        <form action="indexLogin.html" th:action th:object="${loginForm}"  method="post" class="box" style="max-width: 700px; top: 120px; border: 3px solid palegreen; background-color: honeydew; border-radius: 5%; box-shadow: 0 0 10px yellowgreen">
+
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p id="loginFail" class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            </div>
+
+
+            <div class="modal-container" style="text-align: center;">
+                <img class="modal-image" src="../images/HPbao_-_MarkMaker_Logo-removebg-preview.png" alt="">
+            </div>
+
+
+            <div class="field py-2">
+                <label class="label is-medium has-text-success" for="loginId" th:text="#{label.loginForm.loginId}">아이디</label>
+                <div class="control">
+                    <input type="text" id="loginId" class="input is-medium"
+                    th:field="*{loginId}" th:errorclass="field-error">
+                    <div id="loginIdMessage" class="field-error" th:errors="*{loginId}"></div>
+                </div>
+            </div>
+
+
+            <div class="field">
+                <label class="label is-medium has-text-success" for="password" th:text="#{label.loginForm.password}">비밀번호</label>
+                <div class="control">
+                    <input class="input is-medium"
+                           id="password"
+                           type="password"
+                           placeholder="비밀번호를 입력하세요."
+                       th:field="*{password}" th:errorclass="field-error">
+                    <div id="passwordMessage" class="field-error" th:errors="*{password}"></div>
+                </div>
+            </div>
+
+
+            <div class="button is-ghost has-text-black is-small ">아이디찾기</div>
+            <span> | </span>
+            <div class="button is-ghost has-text-black is-small ">비밀번호찾기</div>
+
+            <div class="field is-grouped  is-grouped-centered py-6">
+                <div class="control">
+                    <button class="button is-success is-medium" type="submit" th:text="#{button.login}">로그인</button>
+                </div>
+                <div class="control">
+                    <div class="button  is-success is-active is-outlined is-medium" th:text="#{button.join}">회원가입</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <nav class="tabs is-boxed">
+        <img class="mainpt" id="main-image" style="width: 100%; height: 400px; " src="../images/mainpt1.png" alt="로고">
+        <ul class="is-overlay is-align-items-flex-end">
+            <li class="is-active" id="recipe-tab">
+                <a href="#" data-target="recipe" class="">
+                    <span class="is-small"><i aria-hidden="true"></i></span>
+                    <span><strong>레시피</strong></span>
+                </a>
+            </li>
+            <li id="exercise-tab">
+                <a href="#" data-target="exercise" class="">
+                    <span class=" is-small"><i aria-hidden="true"></i></span>
+                    <span><strong>운동</strong></span>
+                </a>
+            </li>
+            <li id="mental-health-tab">
+                <a href="#" data-target="mental-health" class="">
+                    <span class="is-small"><i aria-hidden="true"></i></span>
+                    <span><strong>정신</strong></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <a href="#" data-target="best-button">
+        <span class="button is-success is-success is-rounded is-overlay"
+              style="max-width: 100px; left: calc(100% - 105px); top: 350px;  box-shadow: 0 0 10px rgba(228, 221, 81, 0.7), 0 0 10px rgba(228, 221, 81, 0.7), 0 0 10px rgba(228, 221, 81, 0.7);">BEST</span>
+    </a>
+</div>
+
+
+<div class="container">
+    <div id="content-recipe" class="content">
+        <h1>건강 레시피</h1>
+        <!-- 레시피 관련 내용을 추가합니다. -->
+        <div class="tile is-ancestor">
+
+            <div class="tile is-vertical is-8">
+                <div class="tile">
+                    <!-- <div class="tile is-parent is-vertical">
+                      <article class="tile is-child notification">
+                        <p class="title">곤약 파스타</p>
+                        <p class="subtitle">Top tile</p>
+                      </article>
+                      <article class="tile is-child notification">
+                        <p class="title">두부돈까스</p>
+                        <p class="subtitle">Bottom tile</p>
+                      </article>
+                    </div> -->
+
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification">
+                            <p class="title">Middle tile</p>
+                            <p class="subtitle">With an image</p>
+                            <figure class="image is-4by3">
+                                <img src="../images/mainpt1.png">
+                            </figure>
+                        </article>
+                    </div>
+
+
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification">
+                            <p class="title">Middle tile</p>
+                            <p class="subtitle">With an image</p>
+                            <figure class="image is-4by3">
+                                <img src="../images/mainpt1.png">
+                            </figure>
+                        </article>
+                    </div>
+
+                    <div class="tile is-parent">
+                        <article class="tile is-child notification">
+                            <p class="title">Middle tile</p>
+                            <p class="subtitle">With an image</p>
+                            <figure class="image is-4by3">
+                                <img src="../images/mainpt1.png">
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child notification">
+                        <p class="title">Wide tile</p>
+                        <p class="subtitle">Aligned with the right tile</p>
+                        <div class="content">
+                            <!-- Content -->
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification">
+                    <div class="content">
+                        <p class="title">Tall tile</p>
+                        <p class="subtitle">With even more content</p>
+                        <div class="content">
+                            <!-- Content -->
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-exercise" class="content">
+        <h1>Exercise Content</h1>
+        <!-- 운동 관련 내용을 추가합니다. -->
+    </div>
+
+    <div id="content-mental-health" class="content">
+        <h1>Mental Health Content</h1>
+        <!-- 정신건강 관련 내용을 추가합니다. -->
+    </div>
+    <div id="content-best" class="content"></div>
+</div>
+</div>
+
+</body>
+</html>

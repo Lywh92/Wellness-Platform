@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+
+        body {
+            background-image: url('../images/mainpt1.png'); /* 배경 이미지 경로 입력 */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: moveBackground 10s linear infinite; /* 애니메이션 추가 */
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 0%;
+            }
+        }
+
+        .dropdown.is-active .dropdown-menu {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            /* position: absolute; */
+            width: 100%;
+            /* top: 100%; */
+            /* left: 0; */
+            /* transform: translate(0, 0); */
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+<div class="container" style="max-width: 700px; border: 1px solid lightgreen;">
+
+    <h1 class="has-text-centered is-size-3 mt-6 pt-6"> BMR 계산기</h1>
+    <div class="control pl-5 m-5">
+        <p class="has-text-success">성별</p>
+        <label class="radio">
+            <input type="radio" name="gender">
+            남자
+        </label>
+        <label class="radio">
+            <input type="radio" name="gender" checked>
+            여자
+        </label>
+    </div>
+
+    <div class="control pl-5 m-5">
+        <p class="has-text-success">체형 목표</p>
+        <label class="radio">
+            <input type="radio" name="body">
+            체중감소
+        </label>
+        <label class="radio">
+            <input type="radio" name="body" checked>
+            체중유지
+        </label>
+        <label class="radio">
+            <input type="radio" name="body" checked>
+            체중증가
+        </label>
+    </div>
+
+    <form class="cneter is-flex is-justify-content-center">
+
+
+        <div class="field px-1" style="width: 200px;">
+            <label class="label has-text-success">몸무게</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+
+        <div class="field px-1" style="width: 200px;">
+            <label class="label has-text-success">키</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+
+        <div class="field px-1" style="width: 200px;">
+            <label class="label has-text-success">나이</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input">
+            </div>
+        </div>
+
+    </form>
+
+    <div class="dropdown is-flex is-justify-content-center mt-3">
+        <div class="dropdown-trigger">
+            <button class="button is-medium" style="width: 600px;" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span id="selectActivity"class="has-text-success">활동 수준을 선택해 주세요.</span>
+                <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+            </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content" style="width: 600px;">
+                <a href="#" class="dropdown-item" onclick="selectActivity('😑 앉아서 일하는 경우 또는 거의 활동하지 않는 경우')">😑 앉아서 일하는 경우 또는 거의 활동하지 않는 경우</a>
+                <a class="dropdown-item" onclick="selectActivity('🙁 가벼운 활용(1주일: 1-3회 운동)')">🙁 가벼운 활용(1주일: 1-3회 운동)</a>
+                <a href="#" class="dropdown-item is-active" onclick="selectActivity('🙂 보통 활동(1주일: 3-5회 운동)')">🙂 보통 활동(1주일: 3-5회 운동)</a>
+                <a href="#" class="dropdown-item" onclick="selectActivity('😊 뛰어난 활동(1주일: 6-7회 이상 운동)')">😊 뛰어난 활동(1주일: 6-7회 이상 운동)</a>
+                <a href="#" class="dropdown-item" onclick="selectActivity('😁 매우 뛰어난 활동(매일 활동 및 신체적으로 힘든 직업)')">😁 매우 뛰어난 활동(매일 활동 및 신체적으로 힘든 직업)</a>
+            </div>
+        </div>
+    </div>
+    <div class="field is-grouped is-flex is is-justify-content-center py-6 my-6">
+        <p class="control">
+            <button class="button is-success">
+                저장
+            </button>
+        </p>
+        <p class="control">
+            <button class="button">
+                취소
+            </button>
+        </p>
+        <p class="control">
+            <button class="button is-link">
+                초기화
+            </button>
+        </p>
+    </div>
+</div>
+<script>
+    // 드롭다운을 토글하는 함수
+    function toggleDropdown() {
+        var dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('is-active');
+    }
+
+    // 드롭다운 버튼 클릭 시 드롭다운 열기/닫기
+    var dropdownTrigger = document.querySelector('.dropdown-trigger button');
+    dropdownTrigger.addEventListener('click', function () {
+        toggleDropdown();
+    });
+    // // 다른 곳을 클릭하면 드롭다운 닫기
+    // document.addEventListener('click', function(event) {
+    //   var dropdown = document.querySelector('.dropdown');
+    //   if (!dropdown.contains(event.target)) {
+    //     dropdown.classList.remove('is-active');
+    //   }
+    // });
+
+    // 아이템 선택 시 호출되는 함수
+    function selectActivity(activity) {
+        var selectActivityElement = document.getElementById('selectActivity');
+        selectActivityElement.textContent = activity;
+        toggleDropdown(); // 아이템 선택 후 드롭다운 닫기
+    }
+</script>
+
+
+</body>
+</html>

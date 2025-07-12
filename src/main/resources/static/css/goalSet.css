@@ -1,0 +1,229 @@
+*{
+    /* font-size: 15px; */
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h3 {
+    width: 800px;
+    color: gray;
+    background-color: rgba(172, 255, 47, 0.114);
+    border-radius: 30px 30px 0 0;
+    padding: 10px;
+    text-align: center;
+    /* align-items: center; */
+    /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    /* margin: 0 0 20px 0; */
+    margin: 0 0 10px;
+    box-sizing: border-box;
+}
+
+h4 {
+    padding: 10px;
+    color: green;
+}
+
+body {
+    background-color: rgb(246, 246, 246);
+    max-width: 800px;
+    margin: 0 auto;
+
+
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    height: 100vh;
+    /* border-radius: 5px; */
+    /* border-style: none; */
+    /* background-color: rgb(251, 255, 251);  */
+
+
+
+}
+
+form > div{
+    width: 800px;
+    background-color: rgb(251, 255, 251);
+    border: 1px solid rgb(177, 255, 61);
+    border-radius: 30px;
+    /* padding-left: 10px; */
+    /* margin-bottom: 30px; */
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+form > div > div{
+    display: flex;
+    margin-bottom: 20px;
+
+}
+
+
+
+textarea{
+    display: flex;
+    width: 200px;
+    height: 100px;
+    padding-top: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: rgb(236, 236, 236,0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    resize: none;
+}
+
+#excGoal{
+    width: 650px;
+}
+
+#dietCaloric{
+    display: flex;
+    /* gap: 10px; */
+    text-align: center;
+    height: 15px;
+}
+
+
+select {
+    display: flex;
+    background-color: rgba(126, 252, 0, 0.311);
+    color: grey;
+    width: 140px;
+    height: 45px;
+    font-size: 15px;
+    /* padding: 10px 0; */
+    /* margin-right: 10px; */
+    text-align: center;
+    /* margin-bottom: 20px; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+label{
+    width: 85px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: green;
+    /* background-color: rgba(255, 228, 196, 0.372); */
+    text-align: center;
+    font-size: 15px;
+
+}
+
+
+
+
+input{
+    display: flex;
+    font-size: 15px;
+    width: 140px;
+    height: 45px;
+    /* padding: 10px 0; */
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(144, 238, 144, 0.3);
+    color: grey;
+    text-align: center;
+    cursor: pointer;
+    /* margin-right: 5px; */
+    /* border: 2px solid green; */
+    /* border-radius: 5px; */
+}
+
+ul{
+    width: 70%;
+    display: flex;
+    text-align: center;
+    justify-content: flex-start;
+    /* align-content: space-around; */
+}
+
+ul > li {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    border: 1px solid green;
+    margin-left: 10px;
+    color: grey;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+
+}
+
+li:hover {
+    background-color: rgba(0, 128, 0, 0.505);
+    color: white;
+}
+
+#excTime{
+    font-size: 15px;
+
+}
+
+button {
+    width: 100px;
+    height: 45px;
+    margin-left: 10px;
+    color: whitesmoke;
+    background-color:rgb(100, 179, 100);
+    border: none;
+
+
+}
+
+span{
+    color: green;
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+}
+
+.diet{
+    display: flex;
+    /* gap: 10px; */
+
+}
+
+.diet input{
+    display: flex;
+    padding: 15px 0;
+
+
+}
+
+
+
+.dietDetail{
+    display: flex;
+    margin-left: 10px;
+    /* border-radius: 5px; */
+}
+
+.dietDetail label{
+    /* border-radius: 5px; */
+    background-color: rgba(144, 238, 144, 0.3);
+    padding-left: 10px;
+    text-align: center;
+}
+
+.exercise {
+    display: flex;
+
+
+}

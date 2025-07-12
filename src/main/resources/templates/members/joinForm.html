@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="../../js/vaildation.js"></script>
+    <script src="https://kit.fontawesome.com/8067bfd9e8.js" crossorigin="anonymous"></script>
+    <style>
+
+        html{
+            background-color: darkolivegreen;
+
+        }
+        .main{
+            /*height: 900px;*/
+            border: 3px solid  #8fce00;
+            background-color: whitesmoke;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(228, 221, 81, 0.7),
+            0 0 10px rgba(228, 221, 81, 0.7),
+            0 0 10px rgba(228, 221, 81, 0.7);
+            border-radius: 3%;
+            padding: 20px 10px;
+            top: 20px;
+
+
+        }
+
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            /* opacity: 0.7; */
+        }
+
+        video {
+            object-fit: cover;
+            height: 235px;
+            width: 100%;
+            border-radius: 10%;
+        }
+
+        img {
+            /* background-color: rgba(128, 235, 174, 0.5); */
+            width: 100px;
+            margin-top: 40px;
+            padding: 4px;
+            border-radius: 50%;
+            box-shadow: 0 0 7px lightgreen, 0 0 7px greenyellow;
+            opacity: 0.8;
+
+        }
+
+        .input:focus {
+            border-color: lightgreen;
+            box-shadow: 0 0 1px 2px greenyellow;
+        }
+
+        /* 유효하지 않은 입력 상자에 대한 스타일 */
+        .invalid {
+            border: 2px solid red; /* 유효하지 않은 입력 상자의 테두리 색상 */
+            color: red; /* 글자 색상도 빨간색으로 변경 */
+        }
+        /* placeholder 메시지의 색상을 지정 */
+        ::placeholder {
+            color: #999; /* 원래 placeholder 메시지 색상 */
+        }
+        /* 입력 필드에 포커스가 있을 때 placeholder 메시지의 색상을 빨간색으로 변경 */
+        .input:focus::placeholder {
+            color: red;
+        }
+
+        .field-error {
+            /*border-color: #dc3545;*/
+            color: #dc3545;
+        }
+
+        .field-success{
+            color: #8fce00;
+        }
+
+    </style>
+</head>
+<body>
+<form action="" th:action th:object="${member}" method="post" class="container main mt-2 " style="max-width: 600px;">
+
+
+    <div class="content-with-video ">
+        <div class="background-video">
+            <video autoplay loop muted>
+                <source src="../../video/self-esteem.mp4" type="video/mp4" alt=""/>
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+
+    <div>
+        <img src="../../images/HPbao_-_MarkMaker_Logo-removebg-preview.png" alt=""/>
+    </div>
+
+    <div class="field-container mt-6 pt-5">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+        </div>
+        <div class="field">
+            <label th:text="#{label.member.userName}" class="label is-medium has-text-success">이름</label>
+            <div class="control has-icons-left has-icons-right">
+                <input
+                        type="text"
+                        id="nameInput"
+                        th:field="*{userName}"
+                        class="input is-medium invalid-input"
+                        placeholder="이름을 입력해주세요."
+                        data-regex="^[가-힣]{2,30}$"
+                        data-icon-valid-left="fa-solid fa-circle-user has-text-success"
+                        data-icon-invalid-left="fa-solid fa-user-slash has-text-danger"
+                        data-icon-valid-right="fa-solid fa-lightbulb has-text-success"
+                        data-icon-invalid-right="fa-solid fa-face-frown has-text-danger"
+                        data-placeholder="이름을 입력해주세요."
+                />
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="field-error"></p>
+<!--                <p th:unless="${#fields.hasErrors('userName')}" style="display: none;"></p>-->
+
+
+                <span class="icon is-small is-left">
+                <i class="fa-solid fa-face-smile"></i>
+              </span>
+                <span class="icon is-small is-right">
+                  <i class="fa-solid fa-face-smile"></i>
+              </span>
+            </div>
+            <p class="help"></p>
+        </div>
+
+        <div class="field">
+            <label class="label is-medium has-text-success" th:text="#{label.member.userId}">아이디</label>
+            <div class="control has-icons-left has-icons-right">
+                <input
+                        id="userIdInput"
+                        class="input is-medium invalid-input"
+                        type="text"
+                        th:field="*{userId}"
+                        th:errorclass="field-error"
+                        placeholder="최소 8~12 이하 영문자, 숫자을 혼합 해주세요"
+                        data-regex="^(?=.*[a-zA-Z]+)(?=.*\d+)[a-zA-Z\d]{8,12}$"
+                        data-icon-valid-left=" fa-regular fa-id-badge has-text-success is-medium"
+                        data-icon-invalid-left="fas fa-check has-text-danger"
+                        data-icon-valid-right="fas fa-check has-text-success"
+                        data-icon-invalid-right="fa-solid fa-circle-xmark has-text-danger"
+                        data-placeholder="최소 8~12 이하 영문자, 숫자을 혼합 해주세요"
+                />
+
+                <div class="field-error" th:errors="*{userId}"></div>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+              </span>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+            </div>
+            <p class="help"></p>
+        </div>
+
+        <!-- 아래 필드들도 동일한 방식으로 추가 -->
+    </div>
+
+
+    <div class="field">
+        <label class="label is-medium has-text-success" th:text="#{label.member.password}">비밀번호</label>
+        <div class="control has-icons-left has-icons-right">
+            <input id="passwordInput"
+                   class="input is-medium "
+                   type="password"
+                   th:field="*{password}"
+                   th:errorclass="field-error"
+                   placeholder="비밀번호를 제대로 입력 해주세요"
+                   data-regex="^(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*\d+)(?=.*[@#$%^&+=!]+).{8,16}$"
+                   data-icon-valid-left=" fa-solid fa-user-tie has-text-success"
+                   data-icon-invalid-left="fas fa-key has-text-danger"
+                   data-icon-valid-right="fa-solid fa-unlock-keyhole has-text-success"
+                   data-icon-invalid-right="fa-solid fa-lock has-text-danger"
+                   data-placeholder=" 8~16,영문 소문자 대문자, 숫자,특수문자 혼합"
+            />
+            <div class="field-error" th:errors="*{password}"></div>
+            <span class="icon is-small is-left">
+            <i class="fas fa-key"></i>
+          </span>
+            <span class="icon is-small is-right">
+            <i class="fa-solid fa-lock"></i>
+          </span>
+        </div>
+        <p class="help is-danger"></p>
+    </div>
+
+    <div class="field">
+        <label class="label is-medium has-text-success" th:text="#{label.member.userEmail}">이메일</label>
+        <div class="control has-icons-left has-icons-right">
+            <input id="emailInput"
+                   class="input is-medium"
+                   type="email"
+                   th:field="*{userEmail}"
+                   th:errorclass="field-error"
+                   placeholder="올바른 이메일 형식를 입력하세요"
+                   data-regex="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                   data-icon-valid="fa-solid fa-envelope has-text-success"
+                   data-icon-invalid="fa-solid fa-exclamation-triangle has-text-danger"/>
+
+                <div class="field-error" th:errors="*{userEmail}"></div>
+            <span class="icon is-small has-text-success is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+            <span class="icon is-small has-text-success is-right">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+          </span>
+        </div>
+        <p class="help is-danger"></p>
+    </div>
+
+    <label class="checkbox mt-3">
+        <input id="agreeCheckbox" type="checkbox"> <a href="/이용약관.html">이용약관</a>에 동의 합니다.
+    </label>
+
+    <div class="field is-grouped is-grouped-centered py-6">
+        <div class="control">
+            <button class="button is-success is-medium is-fullwidth"
+                    type="submit" th:text="#{button.save}">등록</button>
+        </div>
+        <div class="control">
+            <button  class="button is-success is-light is-medium is-fullwidth"
+                    onclick="location.href='index.html'"
+                    th:onclick="|location.href='@{/}'|"
+                    type="button" th:text="#{button.cancel}">취소</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
