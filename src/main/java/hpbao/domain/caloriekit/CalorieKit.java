@@ -35,7 +35,7 @@ public class CalorieKit {
 
     };
 
-    public double newBmr(String gender, Integer weight, Integer height, Integer age){
+    public double addBmr(String gender, Integer weight, Integer height, Integer age){
         double bmr = 0;
         if( StringUtils.hasText(gender) && gender.equals("여성")){
              bmr = 655 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
@@ -46,7 +46,7 @@ public class CalorieKit {
     };
 
     //비율 기반 칼로리 추가 방식 : bmr+(bmr * 비율)
-    public double newPal(double bmr) {
+    public double addPal(double bmr) {
         ExerciseGoal excGoal = new ExerciseGoal();
         Integer intensity = excGoal.getExcIntensity();
         if ( intensity == 1){
